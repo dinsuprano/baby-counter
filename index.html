@@ -7,17 +7,19 @@
     <title>Naura Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="flex items-center justify-center h-screen">
+  <body class="flex flex-col min-h-screen">
 
-    <div class="text-center border border-gray-300 shadow-lg p-6 rounded bg-emerald-900">
-      <h1 class="font-bold text-3xl mb-4">Naura Countdown Timer</h1>
-      <div id="countdown-months-days" class=" text-xl font-mono"></div>
+    <main class="flex-grow flex items-center justify-center">
+      <div class="text-center border border-gray-300 shadow-lg p-6 rounded bg-emerald-900">
+        <h1 class="font-bold text-3xl mb-4">Naura Countdown Timer</h1>
+        <div id="countdown-months-days" class=" text-xl font-mono"></div>
 
-      <div id="countdown-detailed" class="text-xl font-mono mt-4"></div>  
+        <div id="countdown-detailed" class="text-xl font-mono mt-4"></div>  
 
-      <div id="countdown" class="text-l font-mono mt-4"></div>
-      <button id="openModal" class="mt-4 px-4 py-2 bg-violet-500 hover:bg-violet-700 text-white rounded">Month Calculations</button>
-    </div>
+        <div id="countdown" class="text-l font-mono mt-4"></div>
+        <button id="openModal" class="mt-4 px-4 py-2 bg-violet-500 hover:bg-violet-700 text-white rounded">Month Calculations</button>
+      </div>
+    </main>
 
     <!-- Modal -->
     <div id="myModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
@@ -107,5 +109,11 @@
         modalResult.innerHTML = months + " months and " + daysSinceStartOfMonth + " days since birth";
       }
     </script>
+
+    <footer class="bg-white rounded-lg shadow-sm m-4 dark:bg-gray-800">
+      <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="https://nuruddinnaim.com/" class="hover:underline">Nuruddin Naim</a>. All Rights Reserved.</span>
+      </div>
+    </footer>
   </body>
 </html>
