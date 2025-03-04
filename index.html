@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/calculator.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Naura Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="flex items-center justify-center h-screen">
+
+    <div class="text-center border border-gray-300 shadow-lg p-6 rounded bg-emerald-900">
+      <h1 class="font-bold text-3xl mb-4">Naura Countdown Timer</h1>
+      <div id="countdown-months-days" class=" text-xl font-mono"></div>
+
+      <div id="countdown-detailed" class="text-xl font-mono mt-4"></div>  
+
+      <div id="countdown" class="text-l font-mono mt-4"></div>
+      <button id="openModal" class="mt-4 px-4 py-2 bg-violet-500 hover:bg-violet-700 text-white rounded">Month Calculations</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-emerald-900 p-6 rounded shadow-lg">
+        <h2 class="text-2xl mb-4">Month Calculation</h2>
+        <input type="date" id="modalInput" class="border p-2 w-full mb-4" placeholder="Enter Date">
+        <button id="calculate" class="px-4 py-2 bg-sky-500 hover:bg-sky-700">Calculate</button>
+        <button id="closeModal" class="px-4 py-2 bg-red-500 hover:bg-red-700">Close</button>
+        <div id="modalResult" class="text-xl font-mono mt-4"></div>
+      </div>
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      // Set the start date
+      var startDate = new Date("Jan 15, 2025").getTime();
+
+      // Update the count every 1 second
+      var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the start date
+        var distance = now - startDate;
+
+        // Time calculations for days, hours, minutes, and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="countdown"
+        document.getElementById("countdown").innerHTML = days + " days since birth";
+
+        // Display the detailed result in the element with id="countdown-detailed"
+        document.getElementById("countdown-detailed").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+        // Calculate months and days
+        var startDateObj = new Date("Jan 15, 2025");
+        var nowDateObj = new Date();
+        var months = (nowDateObj.getFullYear() - startDateObj.getFullYear()) * 12 + (nowDateObj.getMonth() - startDateObj.getMonth());
+        var daysSinceStartOfMonth = nowDateObj.getDate() - startDateObj.getDate();
+        if (daysSinceStartOfMonth < 0) {
+          months--;
+          var previousMonth = new Date(nowDateObj.getFullYear(), nowDateObj.getMonth(), 0);
+          daysSinceStartOfMonth += previousMonth.getDate();
+        }
+
+        // Display the months and days result in the element with id="countdown-months-days"
+        document.getElementById("countdown-months-days").innerHTML = months + " months and " + daysSinceStartOfMonth + " days since birth";
+  
+      }, 1000);
+
+      // Modal functionality
+      var modal = document.getElementById("myModal");
+      var openModalBtn = document.getElementById("openModal");
+      var closeModalBtn = document.getElementById("closeModal");
+      var calculateBtn = document.getElementById("calculate");
+      var modalInput = document.getElementById("modalInput");
+      var modalResult = document.getElementById("modalResult");
+
+      openModalBtn.onclick = function() {
+        modal.classList.remove("hidden");
+      }
+
+      closeModalBtn.onclick = function() {
+        modal.classList.add("hidden");
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.classList.add("hidden");
+        }
+      }
+
+      calculateBtn.onclick = function() {
+        var userDate = new Date(modalInput.value);
+        var startDateObj = new Date("Jan 15, 2025");
+        var months = (userDate.getFullYear() - startDateObj.getFullYear()) * 12 + (userDate.getMonth() - startDateObj.getMonth());
+        var daysSinceStartOfMonth = userDate.getDate() - startDateObj.getDate();
+        if (daysSinceStartOfMonth < 0) {
+          months--;
+          var previousMonth = new Date(userDate.getFullYear(), userDate.getMonth(), 0);
+          daysSinceStartOfMonth += previousMonth.getDate();
+        }
+        modalResult.innerHTML = months + " months and " + daysSinceStartOfMonth + " days since birth";
+      }
+    </script>
+  </body>
+</html>
